@@ -16,9 +16,13 @@ public class GitHubSelenideTest {
     void pageSoftAssertionsShouldHaveJUnit5() {
         open("https://github.com");
         $("[name='q']").setValue("Selenide").pressEnter();
-        $("ul.repo-list li").find("a").click();
+        $("ul.repo-list li a").click();
         $("[data-content='Wiki']").click();
-        $(byText("Soft assertions")).click();
+
+        var ulSection = $("ul[data-filterable-for='wiki-pages-filter']");
+        ulSection.find("button").click();
+        ulSection.find(byText("SoftAssertions")).click();
+
         $("#wiki-body").shouldHave(text("Using JUnit5"));
     }
 }
